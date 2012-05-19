@@ -64,14 +64,4 @@ task :uninstall do
   end
 end
 
-desc 'Updates vim bundle'
-task :bundle_update do
-  Dir['vim.symlink/bundle/*'].each do |bundle|
-    FileUtils.cd(bundle) do
-      puts "--- Updating #{bundle}"
-      sh 'git pull'
-    end
-  end
-end
-
 task :default => :install
