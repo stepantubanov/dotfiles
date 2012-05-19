@@ -45,7 +45,7 @@ task :install do
 end
 
 task :uninstall do
-  Dir.glob('**/*.symlink').each do |linkable|
+  Dir.glob('*.symlink').each do |linkable|
 
     file = linkable.split('/').last.split('.symlink').last
     target = "#{ENV['HOME']}/.#{file}"
