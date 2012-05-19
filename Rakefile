@@ -35,6 +35,13 @@ task :install do
     FileUtils.ln_s("#{Dir.pwd}/#{linkable}", target)
     #`ln -s "$PWD/#{linkable}" "#{target}"`
   end
+
+  if File.exists?('vim.symlink/bundle/command-t')
+    puts "Making Command-T"
+    FileUtils.cd 'vim.symlink/bundle/command-t' do
+      sh 'bundle && rake make'
+    end
+  end
 end
 
 task :uninstall do
@@ -62,7 +69,7 @@ task :bundle_update do
   Dir['vim.symlink/bundle/*'].each do |bundle|
     FileUtils.cd(bundle) do
       puts "--- Updating #{bundle}"
-      `git pull`
+      sh 'git pull'
     end
   end
 end
