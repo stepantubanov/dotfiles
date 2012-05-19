@@ -1,3 +1,69 @@
 [submodule "oh-my-zsh.symlink"]
 	path = oh-my-zsh.symlink
 	url = git://github.com/robbyrussell/oh-my-zsh.git
+[submodule "vim.symlink/bundle/vim-indent-object"]
+	path = vim.symlink/bundle/vim-indent-object
+	url = git://github.com/michaeljsmith/vim-indent-object.git
+[submodule "vim.symlink/bundle/tabular"]
+	path = vim.symlink/bundle/tabular
+	url = git://github.com/godlygeek/tabular.git
+[submodule "vim.symlink/bundle/vim-rails"]
+	path = vim.symlink/bundle/vim-rails
+	url = git://github.com/tpope/vim-rails.git
+[submodule "vim.symlink/bundle/vim-repeat"]
+	path = vim.symlink/bundle/vim-repeat
+	url = git://github.com/tpope/vim-repeat.git
+[submodule "vim.symlink/bundle/command-t"]
+	path = vim.symlink/bundle/command-t
+	url = git://git.wincent.com/command-t.git
+[submodule "vim.symlink/bundle/vim-powerline"]
+	path = vim.symlink/bundle/vim-powerline
+	url = git://github.com/Lokaltog/vim-powerline.git
+[submodule "vim.symlink/bundle/matchit.zip"]
+	path = vim.symlink/bundle/matchit.zip
+	url = git://github.com/vim-scripts/matchit.zip.git
+[submodule "vim.symlink/bundle/jellybeans.vim"]
+	path = vim.symlink/bundle/jellybeans.vim
+	url = git://github.com/nanotech/jellybeans.vim.git
+[submodule "vim.symlink/bundle/vim-javascript"]
+	path = vim.symlink/bundle/vim-javascript
+	url = git://github.com/pangloss/vim-javascript.git
+[submodule "vim.symlink/bundle/vim-surround"]
+	path = vim.symlink/bundle/vim-surround
+	url = git://github.com/tpope/vim-surround.git
+[submodule "vim.symlink/bundle/vim-colors-solarized"]
+	path = vim.symlink/bundle/vim-colors-solarized
+	url = git://github.com/altercation/vim-colors-solarized.git
+[submodule "vim.symlink/bundle/vim-fugitive"]
+	path = vim.symlink/bundle/vim-fugitive
+	url = git://github.com/tpope/vim-fugitive.git
+[submodule "vim.symlink/bundle/vimux"]
+	path = vim.symlink/bundle/vimux
+	url = git://github.com/benmills/vimux.git
+[submodule "vim.symlink/bundle/vim-ruby"]
+	path = vim.symlink/bundle/vim-ruby
+	url = git://github.com/vim-ruby/vim-ruby.git
+[submodule "vim.symlink/bundle/vim-markdown"]
+	path = vim.symlink/bundle/vim-markdown
+	url = git://github.com/tpope/vim-markdown.git
+[submodule "vim.symlink/bundle/vim-slim"]
+	path = vim.symlink/bundle/vim-slim
+	url = git://github.com/bbommarito/vim-slim.git
+[submodule "vim.symlink/bundle/vim-endwise"]
+	path = vim.symlink/bundle/vim-endwise
+	url = git://github.com/tpope/vim-endwise.git
+[submodule "vim.symlink/bundle/vim-haml"]
+	path = vim.symlink/bundle/vim-haml
+	url = git://github.com/tpope/vim-haml.git
+[submodule "vim.symlink/bundle/ruby-matchit"]
+	path = vim.symlink/bundle/ruby-matchit
+	url = git://github.com/vim-scripts/ruby-matchit.git
+[submodule "vim.symlink/bundle/vim-commentary"]
+	path = vim.symlink/bundle/vim-commentary
+	url = git://github.com/tpope/vim-commentary.git
+[submodule "vim.symlink/bundle/nerdtree"]
+	path = vim.symlink/bundle/nerdtree
+	url = git://github.com/scrooloose/nerdtree.git
+[submodule "vim.symlink/bundle/vim-coffee-script"]
+	path = vim.symlink/bundle/vim-coffee-script
+	url = git://github.com/kchmck/vim-coffee-script.git
