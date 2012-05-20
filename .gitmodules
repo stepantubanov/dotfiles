@@ -18,7 +18,8 @@
 	url = git://github.com/Lokaltog/vim-powerline.git
 [submodule "vim/bundle/matchit.zip"]
 	path = vim/bundle/matchit.zip
-	url = git://github.com/vim-scripts/matchit.zip.git
+    url = git://github.com/vim-scripts/matchit.zip.git
+    ignore = untracked
 [submodule "vim/bundle/jellybeans.vim"]
 	path = vim/bundle/jellybeans.vim
 	url = git://github.com/nanotech/jellybeans.vim.git

@@ -40,9 +40,9 @@ task :install do
     #`ln -s "$PWD/#{linkable}" "#{target}"`
   end
 
-  if File.exists?('vim.symlink/bundle/command-t')
+  if File.exists?('vim/bundle/command-t')
     puts "Making Command-T"
-    FileUtils.cd 'vim.symlink/bundle/command-t' do
+    FileUtils.cd 'vim/bundle/command-t' do
       sh 'bundle && rake make'
     end
   end
