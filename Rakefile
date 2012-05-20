@@ -1,9 +1,13 @@
 require 'rake'
 require 'fileutils'
 
+def dotfiles
+  Dir['*'] - ['README.md', 'Rakefile']
+end
+
 desc 'Hook our dotfiles into system-standard positions.'
 task :install do
-  linkables = Dir.glob('*.symlink')
+  linkables = dotfiles
 
   skip_all = false
   overwrite_all = false
@@ -13,7 +17,7 @@ task :install do
     overwrite = false
     backup = false
 
-    file = linkable.split('/').last.split('.symlink').last
+    file = linkable.split('/').last
     target = "#{ENV['HOME']}/.#{file}"
 
     if File.exists?(target) || File.symlink?(target)
@@ -45,9 +49,9 @@ task :install do
 end
 
 task :uninstall do
-  Dir.glob('*.symlink').each do |linkable|
+  dotfiles.each do |linkable|
 
-    file = linkable.split('/').last.split('.symlink').last
+    file = linkable.split('/').last
     target = "#{ENV['HOME']}/.#{file}"
 
     # Remove all symlinks created during installation
