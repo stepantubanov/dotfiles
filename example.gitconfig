@@ -1,0 +1,36 @@
+[user]
+  name = 
+  email = 
+[github]
+  user = 
+  token = 
+[alias]
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  df = diff
+  lg = log -p
+  pf = pull --ff-only
+[diff]
+  tool = vimdiff
+[difftool]
+  prompt = false
+[color]
+  branch = auto
+  diff = auto
+  status = auto
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+[color "diff"]
+  meta = yellow
+  frag = magenta
+  old = red
+  new = green
+[color "status"]
+  added = green
+  changed = cyan bold
+  untracked = yellow
+  removed = red
