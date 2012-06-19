@@ -132,9 +132,56 @@ inoremap <s-tab> <c-n>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Running tests
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>w :call RunTestFile()<cr>
+map <leader>W :call RunNearestTest()<cr>
+map <leader>a :call RunTests('')<cr>
+map <leader>c :w\|:!script/features<cr>
+map <leader>C :w\|:!script/features --profile wip<cr>
 
-" To be replaced soon.
-nmap <leader>w :w\|!rspec --drb %<cr>
+function! RunTestFile(...)
+  if a:0
+    let command_suffix = a:1
+  else
+    let command_suffix = ""
+  endif
+
+  " Run the tests for the previously-marked file.
+  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\)$') != -1
+  if in_test_file
+    call SetTestFile()
+  elseif !exists("t:grb_test_file")
+    return
+  end
+  call RunTests(t:grb_test_file . command_suffix)
+endfunction
+
+function! RunNearestTest()
+  let spec_line_number = line('.')
+  call RunTestFile(":" . spec_line_number . " -b")
+endfunction
+
+function! SetTestFile()
+" Set the spec file that tests will be run for.
+  let t:grb_test_file=@%
+endfunction
+
+function! RunTests(filename)
+  " Write the file and run tests for the given filename
+  :w
+  if match(a:filename, '\.feature$') != -1
+    let run_tests_command = "script/features " . a:filename
+  else
+    if filereadable("script/test")
+      let run_tests_command = "script/test " . a:filename
+    elseif filereadable("Gemfile")
+      let run_tests_command = "bundle exec rspec --color " . a:filename
+    else
+      let run_tests_command = "rspec --color " . a:filename
+    end
+  end
+
+  exec ":!clear && echo \"" . run_tests_command . "\" && " . run_tests_command
+endfunction
 
 " ----------------------------------------------------------------------------
 " Plugins
