@@ -56,7 +56,6 @@ nnoremap ; :
 
 " Hide search highlighting
 nmap <silent> <leader>. :nohlsearch<cr>
-nmap <leader>w :w\|!rspec --drb %<cr>
 
 " Quickly jump between last two files
 nmap <leader><leader> <C-^>
@@ -109,11 +108,33 @@ colorscheme ir_ben
 " AutoCommands
 " ----------------------------------------------------------------------------
 
-" THANKS GARY!
+" Jump to last cursor position unless it's invalid or in an event handler (grb)
 autocmd BufReadPost *
       \ if line("'\"") > 0 && line("'\"") <= line("$") |
       \   exe "normal g`\"" |
       \ endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MULTIPURPOSE TAB KEY
+" Indent if we're at the beginning of a line. Else, do completion. (grb)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
+endfunction
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <s-tab> <c-n>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Running tests
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" To be replaced soon.
+nmap <leader>w :w\|!rspec --drb %<cr>
 
 " ----------------------------------------------------------------------------
 " Plugins
