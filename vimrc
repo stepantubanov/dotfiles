@@ -148,6 +148,7 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let g:NERDTreeWinSize = 30
 
+map <leader>T :CommandTFlush<cr>
 let g:CommandTMaxHeight = 10
 
 let g:Powerline_colorscheme = 'default'
