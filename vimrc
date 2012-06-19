@@ -56,7 +56,7 @@ nnoremap ; :
 
 " Hide search highlighting
 nmap <silent> <leader>. :nohlsearch<cr>
-nmap <leader>w :w\|!rspec %<cr>
+nmap <leader>w :w\|!rspec --drb %<cr>
 
 " Quickly jump between last two files
 nmap <leader><leader> <C-^>
@@ -104,6 +104,16 @@ set statusline=%f\ %m%y%=%c,%l/%L\ %P
 
 set background=dark
 colorscheme ir_ben
+
+" ----------------------------------------------------------------------------
+" AutoCommands
+" ----------------------------------------------------------------------------
+
+" THANKS GARY!
+autocmd BufReadPost *
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal g`\"" |
+      \ endif
 
 " ----------------------------------------------------------------------------
 " Plugins
