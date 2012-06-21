@@ -1,6 +1,3 @@
-require 'rake'
-require 'fileutils'
-
 def dotfiles
   Dir['*'] - ['README.md', 'Rakefile']
 end
@@ -32,17 +29,17 @@ task :install do
         when 's' then next
         end
       end
-      FileUtils.rm_rf(target) if overwrite || overwrite_all
-      FileUtils.mv(target, "#{target}.backup") if backup || backup_all
+      rm_rf(target) if overwrite || overwrite_all
+      mv(target, "#{target}.backup") if backup || backup_all
       #`mv "$HOME/.#{file}" "$HOME/.#{file}.backup"` if backup || backup_all
     end
-    FileUtils.ln_s("#{Dir.pwd}/#{linkable}", target)
+    ln_s("#{Dir.pwd}/#{linkable}", target)
     #`ln -s "$PWD/#{linkable}" "#{target}"`
   end
 
   if File.exists?('vim/bundle/command-t')
     puts "Making Command-T"
-    FileUtils.cd 'vim/bundle/command-t' do
+    cd 'vim/bundle/command-t' do
       sh 'bundle && rake make'
     end
   end
@@ -56,13 +53,13 @@ task :uninstall do
 
     # Remove all symlinks created during installation
     if File.symlink?(target)
-      FileUtils.rm(target)
+      rm(target)
     end
     
     # Replace any backups made during installation
     backup = "#{target}.backup"
     if File.exists?(backup)
-      FileUtils.mv(backup, target)
+      mv(backup, target)
       #`mv "$HOME/.#{file}.backup" "$HOME/.#{file}"`
     end
   end
