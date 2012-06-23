@@ -130,7 +130,7 @@ inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Running tests
+" Running tests (grb)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>w :call RunTestFile()<cr>
 map <leader>W :call RunNearestTest()<cr>
@@ -182,6 +182,20 @@ function! RunTests(filename)
 
   exec ":!clear && echo \"" . run_tests_command . "\" && " . run_tests_command
 endfunction
+
+" ----------------------------------------------------------------------------
+" Rename file (grb)
+" ----------------------------------------------------------------------------
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+map <leader>n :call RenameFile()<cr>
 
 " ----------------------------------------------------------------------------
 " Plugins
