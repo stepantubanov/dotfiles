@@ -207,6 +207,81 @@ function! RemoveFile()
 endfunction
 map <leader>d :call RemoveFile()<cr>
 
+"-----------------------------------------------------------------------------
+" Go to next indent block
+" (goes to the next equally or less indented block)
+"-----------------------------------------------------------------------------
+function! GoToNextIndentBlock()
+  let current_line = line('.')
+  let last_line = line('$')
+
+  let target_indent = indent(current_line)
+  let skip_second_loop = 0
+
+  if target_indent == 0
+    let skip_second_loop = 1
+    let target_indent = 1
+    let current_line = nextnonblank(current_line + 1)
+  endif
+
+  " Skip lines with the same or more indentation
+  while (current_line != 0) && (current_line < last_line) && (target_indent <= indent(current_line))
+    let current_line = nextnonblank(current_line + 1)
+  endwhile
+
+  if skip_second_loop == 0
+    " Now go find first line with less indentation
+    while (current_line != 0) && (current_line < last_line) && (target_indent > indent(current_line))
+      let current_line = nextnonblank(current_line + 1)
+    endwhile
+  endif
+
+  if current_line == 0
+    let current_line = last_line
+  endif
+
+  call cursor(current_line, 0)
+  execute 'normal zz'
+endfunction
+map gi :call GoToNextIndentBlock()<cr>
+
+"-----------------------------------------------------------------------------
+" Go to previous indent block
+" (goes to the previous equally or less indented block)
+"-----------------------------------------------------------------------------
+function! GoToPrevIndentBlock()
+  let current_line = line('.')
+
+  let target_indent = indent(current_line)
+  let skip_second_loop = 0
+
+  if target_indent == 0
+    let skip_second_loop = 1
+    let target_indent = 1
+    let current_line = prevnonblank(current_line - 1)
+  endif
+
+  " Skip lines with the same or more indentation
+  while (current_line != 0) && (current_line > 1) && (target_indent <= indent(current_line))
+    let current_line = prevnonblank(current_line - 1)
+  endwhile
+
+  if skip_second_loop == 0
+    " Now go find first line with less indentation
+    while (current_line != 0) && (current_line > 1) && (target_indent > indent(current_line))
+      let current_line = prevnonblank(current_line - 1)
+    endwhile
+  endif
+
+  if current_line == 0
+    let current_line = 1
+  endif
+
+  call cursor(current_line, 0)
+  execute 'normal zz'
+endfunction
+map gI :call GoToPrevIndentBlock()<cr>
+
 " ----------------------------------------------------------------------------
 " Plugins
 " ----------------------------------------------------------------------------
