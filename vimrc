@@ -262,13 +262,13 @@ function! GoToPrevIndentBlock()
   endif
 
   " Skip lines with the same or more indentation
-  while (current_line != 0) && (current_line > 1) && (target_indent <= indent(current_line))
+  while (current_line > 1) && (target_indent <= indent(current_line))
     let current_line = prevnonblank(current_line - 1)
   endwhile
 
   if skip_second_loop == 0
     " Now go find first line with less indentation
-    while (current_line != 0) && (current_line > 1) && (target_indent > indent(current_line))
+    while (current_line > 1) && (target_indent > indent(current_line))
       let current_line = prevnonblank(current_line - 1)
     endwhile
   endif
