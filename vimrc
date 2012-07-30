@@ -101,6 +101,9 @@ set ignorecase             " ignore case when searching
 set t_Co=256
 set statusline=%f\ %m%y%=%c,%l/%L\ %P
 
+" show some special characters
+set list listchars=tab:▸\ ,trail:·,nbsp:_,extends:»,precedes:«
+
 set background=dark
 colorscheme ir_ben
 
