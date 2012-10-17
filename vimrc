@@ -300,5 +300,7 @@ let g:NERDTreeWinSize = 30
 map <leader>T :CommandTFlush<cr>
 let g:CommandTMaxHeight = 10
 
+set wildignore+=tmp/**
+
 let g:Powerline_colorscheme = 'default'
 let g:Powerline_symbols = 'fancy'
