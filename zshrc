@@ -85,3 +85,6 @@ glog() {
 
 # Only 15 last
 alias glor="glog -15"
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
