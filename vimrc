@@ -53,6 +53,7 @@ set pastetoggle=<F2>
 
 " Use ; instead of : to type commands
 nnoremap ; :
+vnoremap ; :
 
 " Hide search highlighting
 nmap <silent> <leader>. :nohlsearch<cr>
@@ -177,9 +178,9 @@ function! RunTests(filename)
     if filereadable("script/test")
       let run_tests_command = "script/test " . a:filename
     elseif filereadable("Gemfile")
-      let run_tests_command = "bundle exec rspec --color " . a:filename
+      let run_tests_command = "bundle exec rspec --options ~/.rspec " . a:filename
     else
-      let run_tests_command = "rspec --color " . a:filename
+      let run_tests_command = "rspec --options ~/.rspec " . a:filename
     end
   end
 
@@ -300,7 +301,8 @@ let g:NERDTreeWinSize = 30
 map <leader>T :CommandTFlush<cr>
 let g:CommandTMaxHeight = 10
 
-set wildignore+=tmp/**
+set wildignore+=tmp/**,public/system/**
 
 let g:Powerline_colorscheme = 'default'
 let g:Powerline_symbols = 'fancy'
+set timeout timeoutlen=1000 ttimeoutlen=100
