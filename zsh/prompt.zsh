@@ -1,5 +1,7 @@
 autoload colors && colors
 
+# Git info
+
 git_dirty() {
   if [[ -n $(git status -s 2>/dev/null) ]]; then
     echo "$FG[214]*"
@@ -13,21 +15,22 @@ git_prompt_info () {
   echo "$FG[075]branch:(${ref#refs/heads/}$(git_dirty)$FG[075]) "
 }
 
-unpushed () {
-  /usr/bin/git cherry -v origin/$(git_branch) 2>/dev/null
-}
+# Vim mode
 
-need_push () {
-  if [[ $(unpushed) == "" ]]
-  then
-    echo " "
-  else
-    echo " with %{$fg[green]%}unpushed%{$reset_color%} "
-  fi
-}
+vim_ins_mode="%{$fg[cyan]%}[INS]%{$reset_color%}"
+vim_cmd_mode="%{$fg[green]%}[CMD]%{$reset_color%}"
+vim_mode=$vim_ins_mode
 
-# export PROMPT=$'$(git_dirty)› '
-# export PROMPT=$'\n$(rbenv_prompt) in $(directory_name) $(git_dirty)$(need_push)\n› '
-# export PROMPT=$'%{$fg[blue]%}%m%{$reset_color%}:%{$fg[white]%}%c%{$reset_color%}$(git_dirty) %{$fg[white]%}›%{$reset_color%} '
+function zle-keymap-select {
+  vim_mode="${${KEYMAP/vicmd/${vim_cmd_mode}}/(main|viins)/${vim_ins_mode}}"
+  zle reset-prompt
+}
+zle -N zle-keymap-select
+
+function zle-line-finish {
+  vim_mode=$vim_ins_mode
+}
+zle -N zle-line-finish
+
 
 export PROMPT=$'$FX[bold]$FG[032]%c $(git_prompt_info)$FG[105]%(!.#.»)$FX[reset]%{$reset_color%} '
