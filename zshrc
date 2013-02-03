@@ -6,4 +6,4 @@ source $ZSH/aliases.zsh
 source $ZSH/prompt.zsh
 
 ### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+export PATH="/usr/local/bin:/usr/local/heroku/bin:$PATH"
