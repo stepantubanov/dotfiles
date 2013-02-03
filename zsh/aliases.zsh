@@ -1,6 +1,6 @@
 # Colors
 
-alias ls='ls --color=tty'
+#alias ls='ls --color=tty'
 
 # ---------------------------------------------------------------------------
 # Pretty Git Log (grb)
