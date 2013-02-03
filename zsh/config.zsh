@@ -14,7 +14,7 @@ setopt hist_verify
 setopt share_history # share history between sessions ???
 setopt extended_history # add timestamps to history
 setopt prompt_subst
-setopt correct
+unsetopt correct
 setopt complete_in_word
 setopt ignore_eof
 
@@ -30,7 +30,7 @@ setopt complete_aliases
 
 unsetopt correct_all
 
-export PATH=/home/step/.rbenv/shims:/home/step/.rbenv/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+eval "$(rbenv init -)"
 export RBXOPT="-X19"
 export TERM="xterm-256color"
 
