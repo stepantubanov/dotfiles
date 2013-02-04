@@ -37,7 +37,7 @@ hi WarningMsg        ctermfg=white       ctermbg=red         cterm=NONE
 " Message displayed
 hi ModeMsg           ctermfg=green       ctermbg=NONE        cterm=bold
 
-if version >= 700 "
+if version >= 700
   hi CursorLine      ctermfg=NONE        ctermbg=236       cterm=NONE
   hi CursorColumn    ctermfg=NONE        ctermbg=NONE        cterm=BOLD
   hi MatchParen      ctermfg=white       ctermbg=darkgray    cterm=NONE
