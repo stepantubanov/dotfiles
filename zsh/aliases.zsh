@@ -1,7 +1,3 @@
-# Colors
-
-#alias ls='ls --color=tty'
-
 # ---------------------------------------------------------------------------
 # Pretty Git Log (grb)
 # ---------------------------------------------------------------------------
@@ -21,7 +17,7 @@
 glog() {
   local commit_hash="%C(yellow)%h%Creset"
   local relative_time="%Cgreen(%ar)%Creset"
-  local author="%C(bold blue)<%an>%Creset"
+  local author="%C(bold 075)<%an>%Creset"
   local refs="%C(red)%d%Creset"
   local subject="%s"
 
