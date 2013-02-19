@@ -72,6 +72,9 @@ endfunc
 
 nnoremap <C-l> :call NumberToggle()<Cr>
 
+" Percent-percent expands to directory path
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
+
 " ----------------------------------------------------------------------------
 "  UI
 " ----------------------------------------------------------------------------
