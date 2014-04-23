@@ -1,3 +1,3 @@
 set guioptions-=T
 set guioptions-=L
-colorscheme sienna
+set guifont=Monaco:h12
