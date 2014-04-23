@@ -35,3 +35,4 @@ glog() {
 
 # Only 15 last
 alias glor="glog -15"
+alias bi="bundle exec"
