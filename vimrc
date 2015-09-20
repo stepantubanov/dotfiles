@@ -181,9 +181,9 @@ function! RunTests(filename)
     if filereadable("script/test")
       let run_tests_command = "script/test " . a:filename
     elseif filereadable("Gemfile")
-      let run_tests_command = "bundle exec rspec --options ~/.rspec " . a:filename
+      let run_tests_command = "bundle exec rspec " . a:filename
     else
-      let run_tests_command = "rspec --options ~/.rspec " . a:filename
+      let run_tests_command = "rspec " . a:filename
     end
   end
 
@@ -304,7 +304,7 @@ let g:NERDTreeWinSize = 30
 map <leader>T :CommandTFlush<cr>
 let g:CommandTMaxHeight = 10
 
-set wildignore+=tmp/**,public/system/**,public/uploads/**
+set wildignore+=tmp/**,public/system/**,public/uploads/**,t1000/dist/**,t1000/bower_components/**,t1000/node_modules/**,t1000/tmp/**,spec/vcr/**,haystak_bingads/spec/vcr/**,seo-spa/node_modules/**,seo-spa/bower_components/**
 
 let g:Powerline_colorscheme = 'default'
 let g:Powerline_symbols = 'fancy'

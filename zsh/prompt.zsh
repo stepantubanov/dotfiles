@@ -11,7 +11,7 @@ git_dirty() {
 }
 
 git_prompt_info () {
-  ref=$(/usr/bin/git symbolic-ref HEAD 2>/dev/null) || return
+  ref=$(/usr/local/bin/git symbolic-ref HEAD 2>/dev/null) || return
   echo "$FG[075]branch:(${ref#refs/heads/}$(git_dirty)$FG[075]) "
 }
 

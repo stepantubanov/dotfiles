@@ -34,12 +34,6 @@ eval "$(rbenv init -)"
 export RBXOPT="-X19"
 export TERM="xterm-256color"
 
-# Trying custom settings for Ruby
-export RUBY_GC_MALLOC_LIMIT=50000000
-export RUBY_HEAP_MIN_SLOTS=500000
-export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
-export RUBY_HEAP_SLOTS_INCREMENT=250000
-
 # Node
 export NODE_PATH=$NODE_PATH:/usr/lib/node_modules
 
