@@ -9,10 +9,13 @@ filetype on
 filetype indent plugin on
 compiler ruby
 
+set lazyredraw
+
 " ----------------------------------------------------------------------------
 "  Text Formatting
 " ----------------------------------------------------------------------------
 
+set foldmethod=manual
 set autoindent             " automatic indent new lines
 set nowrap                 " do not wrap lines
 set softtabstop=2          " yep, two
@@ -81,7 +84,7 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
 set ruler                  " show the cursor position all the time
 set noshowcmd              " don't display incomplete commands
-set nolazyredraw           " turn off lazy redraw
+"set nolazyredraw           " turn off lazy redraw
 set number                 " line numbers
 set wildmenu               " turn on wild menu
 set wildmode=list:longest,full
@@ -104,6 +107,9 @@ set laststatus=2           " always show the status line
 set ignorecase             " ignore case when searching
 set t_Co=256
 set statusline=%f\ %m%y%=%c,%l/%L\ %P
+
+"set synmaxcol=128
+"syntax sync minlines=256
 
 " show some special characters
 set list listchars=tab:\ \ ,trail:·,nbsp:_,extends:»,precedes:«
@@ -164,7 +170,7 @@ endfunction
 
 function! RunNearestTest()
   let spec_line_number = line('.')
-  call RunTestFile(":" . spec_line_number . " -b")
+  call RunTestFile(":" . spec_line_number)
 endfunction
 
 function! SetTestFile()
@@ -180,6 +186,8 @@ function! RunTests(filename)
   else
     if filereadable("script/test")
       let run_tests_command = "script/test " . a:filename
+    elseif filereadable("bin/spring")
+      let run_tests_command = "bin/spring rspec " . a:filename
     elseif filereadable("Gemfile")
       let run_tests_command = "bundle exec rspec " . a:filename
     else
@@ -304,8 +312,14 @@ let g:NERDTreeWinSize = 30
 map <leader>T :CommandTFlush<cr>
 let g:CommandTMaxHeight = 10
 
-set wildignore+=tmp/**,public/system/**,public/uploads/**,t1000/dist/**,t1000/bower_components/**,t1000/node_modules/**,t1000/tmp/**,spec/vcr/**,haystak_bingads/spec/vcr/**,seo-spa/node_modules/**,seo-spa/bower_components/**
+set wildignore+=tmp/**,public/packs-test/**,public/packs/**,public/assets/**,public/system/**,public/uploads/**,,bower_components/**,node_modules/**,spec/vcr/**,spec/support/vcr_cassettes/**,client/node_modules/**,db/seeds/survey_templates.rb
 
 let g:Powerline_colorscheme = 'default'
 let g:Powerline_symbols = 'fancy'
 set timeout timeoutlen=1000 ttimeoutlen=100
+
+" Quicker window movement
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l

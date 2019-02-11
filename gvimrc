@@ -1,3 +1,5 @@
-set guioptions-=T
-set guioptions-=L
-set guifont=Monaco:h12
+"set guioptions-=T
+"set guioptions-=L
+set macvim_skip_colorscheme=1
+set background=dark
+colorscheme ir_ben

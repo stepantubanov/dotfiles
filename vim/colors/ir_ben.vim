@@ -11,8 +11,8 @@ let colors_name = "ir_ben"
 "hi Example          ctermfg=NONE        ctermbg=NONE        cterm=NONE
 
 " General colors
-hi Normal            ctermfg=NONE        ctermbg=NONE        cterm=NONE
-hi NonText           ctermfg=237       ctermbg=NONE        cterm=NONE
+hi Normal            ctermfg=NONE        ctermbg=235         cterm=NONE guibg=#333333
+hi NonText           ctermfg=237         ctermbg=NONE        cterm=NONE
 
 hi Cursor            ctermfg=black       ctermbg=white       cterm=reverse
 hi LineNr            ctermfg=darkgray    ctermbg=235         cterm=NONE

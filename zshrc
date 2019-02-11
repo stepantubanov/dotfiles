@@ -7,3 +7,15 @@ source $ZSH/prompt.zsh
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/bin:/usr/local/heroku/bin:$PATH"
+
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+
+eval "$(rbenv init -)"
+export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
