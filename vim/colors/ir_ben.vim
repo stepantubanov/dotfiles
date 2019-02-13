@@ -104,6 +104,11 @@ hi link rubyGlobalVariable    Identifier
 hi link rubyClassVariable     Identifier
 hi link rubyConstant          Type
 
+hi link rubyBlockParameter Identifier
+hi link rubyResponse       Function
+hi link rubyAssertion      Function
+hi link rubyTestMacro      Function
+
 " Special for XML
 hi link xmlTag          Keyword
 hi link xmlTagName      Conditional
