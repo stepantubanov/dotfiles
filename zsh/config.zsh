@@ -2,8 +2,8 @@ export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
 
 HISTFILE=~/.zsh_history
-HISTSIZE=5000
-SAVEHIST=5000
+HISTSIZE=1000
+SAVEHIST=1000
 
 setopt no_bg_nice # don't nice background tasks
 setopt no_hup
@@ -31,7 +31,6 @@ setopt complete_aliases
 unsetopt correct_all
 
 eval "$(rbenv init -)"
-export RBXOPT="-X19"
 export TERM="xterm-256color"
 
 # Node

@@ -310,9 +310,11 @@ let NERDTreeDirArrows = 1
 let g:NERDTreeWinSize = 30
 
 map <leader>T :CommandTFlush<cr>
-let g:CommandTMaxHeight = 10
+let g:CommandTMaxHeight = 12
+let g:CommandTMaxDepth = 10
+let g:CommandTWildIgnore="*/tmp/*,*/public/assets,*/public/packs,*/public/packs-test,*/public/system,*/public/uploads,*/bower_components,*/node_modules,*/spec/vcr,*/vcr_cassettes,*/node_modules"
 
-set wildignore+=tmp/**,public/packs-test/**,public/packs/**,public/assets/**,public/system/**,public/uploads/**,,bower_components/**,node_modules/**,spec/vcr/**,spec/support/vcr_cassettes/**,client/node_modules/**,db/seeds/survey_templates.rb
+" set wildignore+=tmp/**,public/packs-test/**,public/packs/**,public/assets/**,public/system/**,public/uploads/**,,bower_components/**,node_modules/**,spec/vcr/**,spec/support/vcr_cassettes/**,client/node_modules/**,db/seeds/survey_templates.rb
 
 let g:Powerline_colorscheme = 'default'
 let g:Powerline_symbols = 'fancy'

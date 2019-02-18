@@ -14,8 +14,5 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 
-eval "$(rbenv init -)"
-export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
-
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
