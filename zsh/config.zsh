@@ -33,9 +33,6 @@ unsetopt correct_all
 eval "$(rbenv init -)"
 export TERM="xterm-256color"
 
-# Node
-export NODE_PATH=$NODE_PATH:/usr/lib/node_modules
-
 # zsh keys
 bindkey '^[^[[D' backward-word
 bindkey '^[^[[C' forward-word

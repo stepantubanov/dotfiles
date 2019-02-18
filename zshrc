@@ -13,6 +13,7 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="/usr/local/opt/node@8/bin:$PATH"
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
