@@ -12,6 +12,9 @@
   df = diff
   lg = log -p
   pf = pull --ff-only
+  pr = pull --rebase
+  dc = diff --cached
+  bl = branch --sort=committerdate
 [diff]
   tool = vimdiff
 [difftool]
