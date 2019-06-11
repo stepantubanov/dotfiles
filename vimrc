@@ -1,6 +1,7 @@
 call pathogen#infect()
 call pathogen#helptags()
 
+set clipboard=unnamed
 set nocompatible
 syntax enable
 set nobackup
@@ -98,7 +99,7 @@ set nostartofline          " don't jump to the start of line when scrolling
 " ----------------------------------------------------------------------------
 " Visual Cues
 " ----------------------------------------------------------------------------
-set cursorline             " highlight current line
+set nocursorline
 set noshowmatch            " do not jump to the matching pair when typing
 set mat=5                  " duration to show matching brace (1/10 sec)
 set incsearch              " do incremental searching
@@ -303,14 +304,17 @@ map gI :call GoToPrevIndentBlock()<cr>
 
 nmap <silent> <c-n> :NERDTreeToggle<CR>
 
+" autocmd VimEnter * silent NERDTree | wincmd p
+
 let g:showmarks_enable = 0
 
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let g:NERDTreeWinSize = 30
+let NERDTreeIgnore=['\.sock$', '\.rdb$']
 
 map <leader>T :CommandTFlush<cr>
-let g:CommandTMaxHeight = 12
+let g:CommandTMaxHeight = 8
 let g:CommandTMaxDepth = 10
 let g:CommandTWildIgnore="*/tmp/*,*/public/assets,*/public/packs,*/public/packs-test,*/public/system,*/public/uploads,*/bower_components,*/node_modules,*/spec/vcr,*/vcr_cassettes,*/node_modules"
 
