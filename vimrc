@@ -317,6 +317,7 @@ map <leader>T :CommandTFlush<cr>
 let g:CommandTMaxHeight = 8
 let g:CommandTMaxDepth = 10
 let g:CommandTWildIgnore="*/tmp/*,*/public/assets,*/public/packs,*/public/packs-test,*/public/system,*/public/uploads,*/bower_components,*/node_modules,*/spec/vcr,*/vcr_cassettes,*/node_modules"
+let g:CommandTTraverseSCM='pwd'
 
 " set wildignore+=tmp/**,public/packs-test/**,public/packs/**,public/assets/**,public/system/**,public/uploads/**,,bower_components/**,node_modules/**,spec/vcr/**,spec/support/vcr_cassettes/**,client/node_modules/**,db/seeds/survey_templates.rb
 

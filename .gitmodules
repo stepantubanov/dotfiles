@@ -68,3 +68,6 @@
 [submodule "vim/bundle/vim-jst"]
 	path = vim/bundle/vim-jst
 	url = git://github.com/briancollins/vim-jst.git
+[submodule "vim/vim/bundle/vim-terraform"]
+	path = vim/vim/bundle/vim-terraform
+	url = https://github.com/hashivim/vim-terraform.git
