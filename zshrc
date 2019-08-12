@@ -18,5 +18,5 @@ export PATH="/usr/local/opt/node@8/bin:$PATH"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-eval $(docker-machine env default)
-export DOCKER_BUILDKIT=1
+#eval $(docker-machine env default)
+#export DOCKER_BUILDKIT=1
