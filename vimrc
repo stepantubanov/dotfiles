@@ -1,5 +1,4 @@
 call pathogen#infect()
-call pathogen#helptags()
 
 set clipboard=unnamed
 set nocompatible
@@ -11,6 +10,9 @@ filetype indent plugin on
 compiler ruby
 
 set lazyredraw
+set ttyfast
+set regexpengine=1
+set synmaxcol=200
 
 " ----------------------------------------------------------------------------
 "  Text Formatting
@@ -97,6 +99,7 @@ set report=0               " tell us about changes
 set nostartofline          " don't jump to the start of line when scrolling
 
 
+
 " ----------------------------------------------------------------------------
 " Visual Cues
 " ----------------------------------------------------------------------------
@@ -124,10 +127,10 @@ colorscheme ir_ben
 " ----------------------------------------------------------------------------
 
 " Jump to last cursor position unless it's invalid or in an event handler (grb)
-autocmd BufReadPost *
-      \ if line("'\"") > 0 && line("'\"") <= line("$") |
-      \   exe "normal g`\"" |
-      \ endif
+"autocmd BufReadPost *
+"     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+"     \   exe "normal g`\"" |
+"     \ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " MULTIPURPOSE TAB KEY
@@ -322,8 +325,13 @@ let g:CommandTTraverseSCM='pwd'
 
 " set wildignore+=tmp/**,public/packs-test/**,public/packs/**,public/assets/**,public/system/**,public/uploads/**,,bower_components/**,node_modules/**,spec/vcr/**,spec/support/vcr_cassettes/**,client/node_modules/**,db/seeds/survey_templates.rb
 
-let g:Powerline_colorscheme = 'default'
-let g:Powerline_symbols = 'fancy'
+" let g:Powerline_colorscheme = 'default'
+" let g:Powerline_symbols = 'fancy'
+" https://powerline.readthedocs.io/en/master/usage/other.html#vim-statusline
+python3 from powerline.vim import setup as powerline_setup
+python3 powerline_setup()
+python3 del powerline_setup
+
 set timeout timeoutlen=1000 ttimeoutlen=100
 
 " Quicker window movement
@@ -336,3 +344,6 @@ nnoremap <C-l> <C-w>l
 map <C-o> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+" Always start on first line in git commit message
+"autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
