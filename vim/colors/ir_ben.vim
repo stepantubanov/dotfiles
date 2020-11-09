@@ -7,15 +7,16 @@ endif
 
 let colors_name = "ir_ben"
 
+" Change 075 => blue
 
 "hi Example          ctermfg=NONE        ctermbg=NONE        cterm=NONE
 
 " General colors
-hi Normal            ctermfg=NONE        ctermbg=235         cterm=NONE guibg=#333333
+hi Normal            ctermfg=NONE        ctermbg=NONE         cterm=NONE "guibg=#333333
 hi NonText           ctermfg=237         ctermbg=NONE        cterm=NONE
 
 hi Cursor            ctermfg=black       ctermbg=white       cterm=reverse
-hi LineNr            ctermfg=darkgray    ctermbg=235         cterm=NONE
+hi LineNr            ctermfg=darkgray    ctermbg=NONE         cterm=NONE
 
 hi VertSplit         ctermfg=darkgrey    ctermbg=darkgrey    cterm=NONE
 hi StatusLine        ctermfg=white       ctermbg=darkgrey       cterm=NONE
@@ -23,7 +24,7 @@ hi StatusLineNC      ctermfg=darkgray    ctermbg=darkgrey       cterm=NONE
 
 hi Folded            ctermfg=NONE        ctermbg=NONE        cterm=NONE
 hi Title             ctermfg=NONE        ctermbg=NONE        cterm=NONE
-hi Visual            ctermfg=NONE        ctermbg=darkgray    cterm=NONE
+hi Visual            ctermfg=NONE        ctermbg=239         cterm=NONE
 
 hi SpecialKey        ctermfg=NONE        ctermbg=NONE        cterm=NONE
 
@@ -41,18 +42,20 @@ if version >= 700
   hi CursorLine      ctermfg=NONE        ctermbg=236       cterm=NONE
   hi CursorColumn    ctermfg=NONE        ctermbg=NONE        cterm=BOLD
   hi MatchParen      ctermfg=white       ctermbg=darkgray    cterm=NONE
-  hi Pmenu           ctermfg=NONE        ctermbg=darkgray    cterm=NONE
-  hi PmenuSel        ctermfg=darkgray    ctermbg=81          cterm=NONE
+  "hi Pmenu           ctermfg=NONE        ctermbg=darkgray    cterm=NONE
+  "hi PmenuSel        ctermfg=darkgray    ctermbg=81          cterm=NONE
+  hi Pmenu           ctermfg=NONE        ctermbg=239         cterm=NONE
+  hi PmenuSel        ctermfg=18          ctermbg=81          cterm=BOLD
   hi Search          ctermfg=NONE        ctermbg=NONE        cterm=underline
 endif
 
 " Syntax highlightin
-hi Comment           ctermfg=darkgray    ctermbg=NONE        cterm=NONE
+hi Comment           ctermfg=244    ctermbg=NONE        cterm=NONE
 hi String            ctermfg=lightcyan       ctermbg=NONE        cterm=NONE
 hi Number            ctermfg=magenta     ctermbg=NONE        cterm=NONE
 
-hi Keyword           ctermfg=075        ctermbg=NONE        cterm=NONE
-hi PreProc           ctermfg=075        ctermbg=NONE        cterm=NONE
+hi Keyword           ctermfg=blue        ctermbg=NONE        cterm=NONE
+hi PreProc           ctermfg=blue        ctermbg=NONE        cterm=NONE
 hi Conditional       ctermfg=lightmagenta   ctermbg=NONE        cterm=NONE  " if else end
 
 hi Todo              ctermfg=red         ctermbg=NONE        cterm=NONE
@@ -61,7 +64,7 @@ hi Constant          ctermfg=cyan        ctermbg=NONE        cterm=NONE
 hi Identifier        ctermfg=green        ctermbg=NONE        cterm=NONE
 hi Function          ctermfg=magenta       ctermbg=NONE        cterm=NONE
 hi Type              ctermfg=lightmagenta      ctermbg=NONE        cterm=NONE
-hi Statement         ctermfg=075   ctermbg=NONE        cterm=NONE
+hi Statement         ctermfg=blue   ctermbg=NONE        cterm=NONE
 
 hi Special           ctermfg=white       ctermbg=NONE        cterm=NONE
 hi Delimiter         ctermfg=cyan        ctermbg=NONE        cterm=NONE
@@ -90,8 +93,8 @@ hi link Debug           Special
 hi rubyRegexp                  guifg=#B18A3D      guibg=NONE      gui=NONE      ctermfg=brown          ctermbg=NONE      cterm=NONE
 hi rubyRegexpDelimiter         guifg=#FF8000      guibg=NONE      gui=NONE      ctermfg=brown          ctermbg=NONE      cterm=NONE
 hi rubyEscape                  guifg=white        guibg=NONE      gui=NONE      ctermfg=cyan           ctermbg=NONE      cterm=NONE
-hi rubyInterpolationDelimiter  guifg=#00A0A0      guibg=NONE      gui=NONE      ctermfg=075           ctermbg=NONE      cterm=NONE
-hi rubyControl                 guifg=#6699CC      guibg=NONE      gui=NONE      ctermfg=075           ctermbg=NONE      cterm=NONE  "and break, etc
+hi rubyInterpolationDelimiter  guifg=#00A0A0      guibg=NONE      gui=NONE      ctermfg=blue           ctermbg=NONE      cterm=NONE
+hi rubyControl                 guifg=#6699CC      guibg=NONE      gui=NONE      ctermfg=blue           ctermbg=NONE      cterm=NONE  "and break, etc
 hi rubyStringDelimiter         guifg=#336633      guibg=NONE      gui=NONE      ctermfg=lightgreen     ctermbg=NONE      cterm=NONE
 
 hi link rubyClass             Keyword
