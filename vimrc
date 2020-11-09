@@ -46,6 +46,10 @@ cnoremap ` <ESC>
 "nnoremap Q gqap
 "vnoremap Q gq
 
+" Next/prev match for "f" or "t" motions
+nnoremap - ,
+nnoremap = ;
+
 " Don't use arrows
 map <up> <nop>
 map <down> <nop>
