@@ -30,7 +30,6 @@ setopt complete_aliases
 
 unsetopt correct_all
 
-eval "$(rbenv init -)"
 export TERM="xterm-256color"
 
 # zsh keys

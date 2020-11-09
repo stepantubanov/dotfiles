@@ -39,3 +39,5 @@ alias glor="glog -15"
 alias bi="bundle exec"
 alias pg="postgres -D /usr/local/var/postgres"
 alias q="exit"
+
+alias icat="kitty +kitten icat"

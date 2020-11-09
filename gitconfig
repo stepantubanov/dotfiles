@@ -1,9 +1,9 @@
 [user]
-  name = 
-  email = 
+  name = Stepan Tubanov
+  email = stepan773@gmail.com
 [github]
-  user = 
-  token = 
+  user =
+  token =
 [alias]
   st = status
   ci = commit
@@ -37,5 +37,3 @@
   changed = cyan bold
   untracked = yellow
   removed = red
-[core]
-  excludesfile = ~/.gitignore

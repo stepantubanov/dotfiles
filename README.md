@@ -1,11 +1,8 @@
 ## Installation
 
-Prerequisites: ruby and rake.
+Prerequisites: https://github.com/thoughtbot/rcm
 
-    git clone git://github.com/stephan778/dotfiles.git
-    cd dotfiles
-    git submodule update --init
-    rake
+    git clone git://github.com/stepantubanov/dotfiles.git ~/.dotfiles
+    RCRC=~/.dotfiles/rcrc rcup -t (TAG)
 
-Then use ~/.example.gitconfig to create a .gitconfig (just fill out missing
-fields).
+Replace (TAG) with either "macosx" or "ubuntu".

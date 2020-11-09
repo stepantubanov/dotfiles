@@ -1,0 +1,11 @@
+export PATH=/usr/local/cuda-11.0/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-11.0/lib64:$LD_LIBRARY_PATH
+
+export VIM=/usr/share/vim/vim81/
+export PATH=$HOME/llvm-project/build/bin:$PATH
+
+export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.cargo/bin:$PATH
+
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;5C' forward-word

@@ -9,7 +9,7 @@ git_dirty() {
 }
 
 git_prompt_info () {
-  ref=$(/usr/local/bin/git symbolic-ref HEAD 2>/dev/null) || return
+  ref=$(/usr/bin/git symbolic-ref HEAD 2>/dev/null) || return
   echo "$FG[075]branch:(${ref#refs/heads/}$(git_dirty)$FG[075]) "
 }
 
@@ -30,4 +30,4 @@ git_prompt_info () {
 #}
 #zle -N zle-line-finish
 
-export PROMPT=$'$FX[bold]$FG[032]%c $(git_prompt_info)$FG[105]%(!.#.»)$FX[reset]%{$reset_color%} '
+export PROMPT=$'$FX[bold]$FG[075]%c $(git_prompt_info)$FG[105]%(!.#.»)$FX[reset]%{$reset_color%} '

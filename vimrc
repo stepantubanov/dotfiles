@@ -1,18 +1,19 @@
-call pathogen#infect()
+" ----------------------------------------------------------------------------
+" Misc Editor
+" ----------------------------------------------------------------------------
 
-set clipboard=unnamed
 set nocompatible
-syntax enable
 set nobackup
 set noswapfile
 filetype on
 filetype indent plugin on
 compiler ruby
+" set regexpengine=2
+au FileType cpp set mps+=<:>
+" Always start on first line in git commit message
+"autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
 
-set lazyredraw
-set ttyfast
-set regexpengine=1
-set synmaxcol=200
+set timeout timeoutlen=1000 ttimeoutlen=100
 
 " ----------------------------------------------------------------------------
 "  Text Formatting
@@ -31,15 +32,15 @@ set textwidth=80           " wrap at 80 chars by default
 set virtualedit=block      " allow virtual edit in visual block ..
 
 " ----------------------------------------------------------------------------
-"  Remapping
+" Editing
 " ----------------------------------------------------------------------------
 
 " lead with ,
 let mapleader = ","
 
-inoremap § <ESC>
-vnoremap § <ESC>
-cnoremap § <ESC>
+inoremap ` <ESC>
+vnoremap ` <ESC>
+cnoremap ` <ESC>
 
 " reflow paragraph with Q in normal and visual mode
 "nnoremap Q gqap
@@ -51,16 +52,18 @@ map <down> <nop>
 map <left> <nop>
 map <right> <nop>
 
-" Quickly open and reload .vimrc
-nmap <silent> <leader>ev :e $MYVIMRC<cr>
-nmap <silent> <leader>sv :so $MYVIMRC<cr>
-
-" Press F2, paste, press F2 again
-set pastetoggle=<F2>
-
 " Use ; instead of : to type commands
 nnoremap ; :
 vnoremap ; :
+
+" Paste without yanking
+vnoremap p "_dP
+
+" Quicker window movement
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 
 " Hide search highlighting
 nmap <silent> <leader>. :nohlsearch<cr>
@@ -89,6 +92,7 @@ cnoremap %% <C-R>=expand('%:h').'/'<cr>
 set ruler                  " show the cursor position all the time
 set noshowcmd              " don't display incomplete commands
 "set nolazyredraw           " turn off lazy redraw
+set lazyredraw
 set number                 " line numbers
 set wildmenu               " turn on wild menu
 set wildmode=list:longest,full
@@ -98,11 +102,6 @@ set whichwrap+=<,>,h,l,[,] " backspace and cursor keys wrap to
 set report=0               " tell us about changes
 set nostartofline          " don't jump to the start of line when scrolling
 
-
-
-" ----------------------------------------------------------------------------
-" Visual Cues
-" ----------------------------------------------------------------------------
 set nocursorline
 set noshowmatch            " do not jump to the matching pair when typing
 set mat=5                  " duration to show matching brace (1/10 sec)
@@ -113,99 +112,121 @@ set ignorecase             " ignore case when searching
 set t_Co=256
 set statusline=%f\ %m%y%=%c,%l/%L\ %P
 
+syntax enable
+set ttyfast
+set synmaxcol=200
+
 "set synmaxcol=128
 "syntax sync minlines=256
 
 " show some special characters
 set list listchars=tab:\ \ ,trail:·,nbsp:_,extends:»,precedes:«
 
-set background=dark
-colorscheme ir_ben
+" set termguicolors
+
+" set background=dark
+" colorscheme ir_ben
+" colorscheme tender
 
 " ----------------------------------------------------------------------------
-" AutoCommands
+" Configuring Vim
 " ----------------------------------------------------------------------------
 
-" Jump to last cursor position unless it's invalid or in an event handler (grb)
-"autocmd BufReadPost *
-"     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-"     \   exe "normal g`\"" |
-"     \ endif
+" Which syntax highlighting group is under the cursor
+map <C-o> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Quickly open and reload .vimrc
+nmap <silent> <leader>ev :e $MYVIMRC<cr>
+nmap <silent> <leader>sv :so $MYVIMRC<cr>
+
+
+" ----------------------------------------------------------------------------
+" Custom Editing Scripts
+" ----------------------------------------------------------------------------
+
 " MULTIPURPOSE TAB KEY
 " Indent if we're at the beginning of a line. Else, do completion. (grb)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
+  let col = col('.') - 1
+  if !col || getline('.')[col - 1] !~ '\k'
+    return "\<tab>"
+  else
+    return "\<c-p>"
+  endif
 endfunction
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Running tests (grb)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>w :call RunTestFile()<cr>
-map <leader>W :call RunNearestTest()<cr>
-map <leader>a :call RunTests('')<cr>
-map <leader>c :w\|:!script/features<cr>
-map <leader>C :w\|:!script/features --profile wip<cr>
+" RUN CURRENT FILE
+" Detects suitable command to run the current file.
 
-function! RunTestFile(...)
-  if a:0
-    let command_suffix = a:1
-  else
-    let command_suffix = ""
+function! DetectRunCommand(debug)
+  let expanded_path = expand("%")
+  let command = ""
+
+  if expanded_path =~ "_spec\.rb$"
+
+    if filereadable("script/test")
+      let run_command = "script/test " . expanded_path
+    elseif filereadable("bin/spring")
+      let run_command = "bin/spring rspec " . expanded_path
+    elseif filereadable("Gemfile")
+      let run_command = "bundle exec rspec " . expanded_path
+    else
+      let run_command = "rspec " . expanded_path
+    endif
+
+    if a:debug
+      let command = run_command . ":" . line('.')
+    else
+      let command = run_command
+    endif
+
+  elseif expanded_path =~ "\.rb$"
+
+    let command = "ruby " . expanded_path
+
+  elseif expanded_path =~ "bm-.\+\.cpp$"
+
+    let command = "g++ -std=c++17 -O3 -ffast-math -march=native -g % -lm -lbenchmark -lpthread && ./a.out"
+
+  elseif expanded_path =~ "\.cpp$"
+
+    let command = "g++ -std=c++17 -O3 -ffast-math -march=native -g % && time ./a.out"
+
   endif
 
-  " Run the tests for the previously-marked file.
-  let in_test_file = match(expand("%"), '\(.feature\|_spec\(.rb\|.coffee\|.js\)\)$') != -1
-  if in_test_file
-    call SetTestFile()
-  elseif !exists("t:grb_test_file")
-    return
-  end
-  call RunTests(t:grb_test_file . command_suffix)
+  return command
 endfunction
 
-function! RunNearestTest()
-  let spec_line_number = line('.')
-  call RunTestFile(":" . spec_line_number)
-endfunction
-
-function! SetTestFile()
-" Set the spec file that tests will be run for.
-  let t:grb_test_file=@%
-endfunction
-
-function! RunTests(filename)
-  " Write the file and run tests for the given filename
+function! RunCurrentFile(debug)
   :w
-  if match(a:filename, '\.feature$') != -1
-    let run_tests_command = "script/features " . a:filename
-  else
-    if filereadable("script/test")
-      let run_tests_command = "script/test " . a:filename
-    elseif filereadable("bin/spring")
-      let run_tests_command = "bin/spring rspec " . a:filename
-    elseif filereadable("Gemfile")
-      let run_tests_command = "bundle exec rspec " . a:filename
-    else
-      let run_tests_command = "rspec " . a:filename
-    end
-  end
 
-  exec ":!clear && echo \"" . run_tests_command . "\" && " . run_tests_command
+  let g:run_command = DetectRunCommand(a:debug)
+
+  if empty(g:run_command)
+    echomsg "(RunCurrentFile) Don't know how to run this file"
+  else
+    exec "!clear && " . g:run_command
+  endif
 endfunction
 
-" ----------------------------------------------------------------------------
-" Rename file (grb)
-" ----------------------------------------------------------------------------
+function! RepeatLastRun()
+  if !exists("g:run_command") || empty(g:run_command)
+    echomsg "(RepeatLastRun) No last run"
+  else
+    exec "!clear && " . g:run_command
+  endif
+endfunction
+
+map <leader>r :call RunCurrentFile(0)<cr>
+map <leader>R :call RunCurrentFile(1)<cr>
+map <leader>w :call RepeatLastRun()<cr>
+
+" RENAME/REMOVE FILE
+
 function! RenameFile()
   let old_name = expand('%')
   let new_name = input('New file name: ', expand('%'), 'file')
@@ -217,20 +238,15 @@ function! RenameFile()
 endfunction
 map <leader>n :call RenameFile()<cr>
 
-"----------------------------------------------------------------------------
-" Remove file
-" ---------------------------------------------------------------------------
 function! RemoveFile()
   call delete(expand('%'))
-  call NERDTreeFocus()
-  execute 'normal R'
+  " call NERDTreeFocus()
+  " execute 'normal R'
 endfunction
 map <leader>d :call RemoveFile()<cr>
 
-"-----------------------------------------------------------------------------
-" Go to next indent block
+" GO TO NEXT/PREV INDENT BLOCK
 " (goes to the next equally or less indented block)
-"-----------------------------------------------------------------------------
 function! GoToNextIndentBlock()
   let current_line = line('.')
   let last_line = line('$')
@@ -265,10 +281,6 @@ function! GoToNextIndentBlock()
 endfunction
 map gi :call GoToNextIndentBlock()<cr>
 
-"-----------------------------------------------------------------------------
-" Go to previous indent block
-" (goes to the previous equally or less indented block)
-"-----------------------------------------------------------------------------
 function! GoToPrevIndentBlock()
   let current_line = line('.')
 
@@ -306,44 +318,68 @@ map gI :call GoToPrevIndentBlock()<cr>
 " Plugins
 " ----------------------------------------------------------------------------
 
+call plug#begin('~/.vim/plugged')
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" matchit ?
+Plug 'preservim/nerdtree'
+Plug 'junegunn/vim-easy-align'
+Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'pangloss/vim-javascript'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'vim-ruby/vim-ruby'
+Plug 'slim-template/vim-slim'
+
+" Plug 'adrian5/oceanic-next-vim'
+" Plug 'arcticicestudio/nord-vim'
+Plug 'jacoborus/tender.vim'
+
+call plug#end()
+
+" ----------------------------------------------------------------------------
+" Configure Plugins
+" ----------------------------------------------------------------------------
+
+" NERDTree
+
 nmap <silent> <c-n> :NERDTreeToggle<CR>
 
-" autocmd VimEnter * silent NERDTree | wincmd p
-
-let g:showmarks_enable = 0
+"autocmd VimEnter * silent NERDTree | wincmd p
 
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let g:NERDTreeWinSize = 30
 let NERDTreeIgnore=['\.sock$', '\.rdb$']
 
-map <leader>T :CommandTFlush<cr>
-let g:CommandTMaxHeight = 8
-let g:CommandTMaxDepth = 10
-let g:CommandTWildIgnore="*/tmp/*,*/public/assets,*/public/packs,*/public/packs-test,*/public/system,*/public/uploads,*/bower_components,*/node_modules,*/spec/vcr,*/vcr_cassettes,*/node_modules"
-let g:CommandTTraverseSCM='pwd'
+" FZF
 
-" set wildignore+=tmp/**,public/packs-test/**,public/packs/**,public/assets/**,public/system/**,public/uploads/**,,bower_components/**,node_modules/**,spec/vcr/**,spec/support/vcr_cassettes/**,client/node_modules/**,db/seeds/survey_templates.rb
+set rtp+=/usr/bin/fzf
+map <leader>t :FZF<CR>
+let g:fzf_layout = { 'down': '~20%' }
 
-" let g:Powerline_colorscheme = 'default'
-" let g:Powerline_symbols = 'fancy'
-" https://powerline.readthedocs.io/en/master/usage/other.html#vim-statusline
-python3 from powerline.vim import setup as powerline_setup
-python3 powerline_setup()
-python3 del powerline_setup
+"command! -bang -nargs=? -complete=dir Files
+"      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
-set timeout timeoutlen=1000 ttimeoutlen=100
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   <bang>0)
+  "\   fzf#vim#with_preview(), <bang>0)
 
-" Quicker window movement
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
+" Color
+set termguicolors
+colorscheme tender-adjusted
 
-" Which syntax highlighting group is under the cursor
-map <C-o> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+" ----------------------------------------------------------------------------
+" OS Specific Settings
+" ----------------------------------------------------------------------------
 
-" Always start on first line in git commit message
-"autocmd FileType gitcommit call setpos('.', [0, 1, 1, 0])
+source ~/.vimrc-os
