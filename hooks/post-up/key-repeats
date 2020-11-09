@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if command -v defaults &> /dev/null
+then
+
+  defaults write -g ApplePressAndHoldEnabled -bool false
+  defaults write -g InitialKeyRepeat -int 13
+  defaults write -g KeyRepeat -int 1
+
+  echo "MacOSX key repeat delays will take effect on next login."
+fi
