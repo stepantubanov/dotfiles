@@ -244,8 +244,7 @@ map <leader>n :call RenameFile()<cr>
 
 function! RemoveFile()
   call delete(expand('%'))
-  " call NERDTreeFocus()
-  " execute 'normal R'
+  :bdelete
 endfunction
 map <leader>d :call RemoveFile()<cr>
 
@@ -381,6 +380,14 @@ command! -bang -nargs=* Rg
 " Color
 set termguicolors
 colorscheme tender-adjusted
+
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_symbols.dirty = '[*]'
+let g:airline_extensions = ['branch']
 
 " ----------------------------------------------------------------------------
 " OS Specific Settings
