@@ -7,4 +7,3 @@ let &t_ZR="\e[23m"
 inoremap § <ESC>
 vnoremap § <ESC>
 cnoremap § <ESC>
-set rtp+=/usr/local/opt/fzf
