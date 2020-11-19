@@ -170,7 +170,11 @@ function! DetectRunCommand(debug)
   let expanded_path = expand("%")
   let command = ""
 
-  if expanded_path =~ "_spec\.rb$"
+  if filereadable(".vim/run")
+
+    let command = 'BUILD_TYPE=' . (a:debug ? 'Debug' : 'Release') . ' .vim/run'
+
+  elseif expanded_path =~ "_spec\.rb$"
 
     if filereadable("script/test")
       let run_command = "script/test " . expanded_path
@@ -213,11 +217,14 @@ function! RunCurrentFile(debug)
   if empty(g:run_command)
     echomsg "(RunCurrentFile) Don't know how to run this file"
   else
-    exec "!clear && " . g:run_command
+    let title = substitute(g:run_command, "'", "\\'", "")
+    exec "!clear && echo '" . title . "\\n' && " . g:run_command
   endif
 endfunction
 
 function! RepeatLastRun()
+  :w
+
   if !exists("g:run_command") || empty(g:run_command)
     echomsg "(RepeatLastRun) No last run"
   else
@@ -324,6 +331,7 @@ map gI :call GoToPrevIndentBlock()<cr>
 call plug#begin('~/.vim/plugged')
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 " matchit ?
 Plug 'preservim/nerdtree'
 Plug 'junegunn/vim-easy-align'
@@ -364,18 +372,8 @@ let NERDTreeIgnore=['\.sock$', '\.rdb$']
 
 " FZF
 
-set rtp+=/usr/bin/fzf
 map <leader>t :FZF<CR>
 let g:fzf_layout = { 'down': '~20%' }
-
-"command! -bang -nargs=? -complete=dir Files
-"      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   <bang>0)
-  "\   fzf#vim#with_preview(), <bang>0)
 
 " Color
 set termguicolors
@@ -384,7 +382,7 @@ colorscheme tender-adjusted
 let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
+  let g:airline_symbols = {}
 endif
 let g:airline_symbols.dirty = '[*]'
 let g:airline_extensions = ['branch']
