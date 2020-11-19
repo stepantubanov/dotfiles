@@ -63,6 +63,8 @@ vnoremap ; :
 " Paste without yanking
 vnoremap p "_dP
 
+nmap <leader>c :bd<cr>
+
 " Quicker window movement
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -328,11 +330,20 @@ map gI :call GoToPrevIndentBlock()<cr>
 " Plugins
 " ----------------------------------------------------------------------------
 
+function! g:BuffetSetCustomColors()
+  hi! BuffetCurrentBuffer    cterm=Bold gui=Bold guibg=#a0a0a0 guifg=#282828
+  hi! BuffetActiveBuffer     cterm=NONE gui=NONE guibg=#a0a0a0 guifg=#282828
+  hi! BuffetBuffer           cterm=NONE gui=NONE guibg=#808080 guifg=#282828
+  hi! BuffetModCurrentBuffer cterm=Bold gui=Bold guibg=#a0a0a0 guifg=#282828
+  hi! BuffetModBuffer        cterm=NONE gui=NONE guibg=#808080 guifg=#282828
+  hi! BuffetTrunc            cterm=NONE gui=NONE guibg=#808080 guifg=#282828
+  hi! BuffetTab              cterm=NONE gui=NONE guibg=#a0a0a0 guifg=#282828
+endfunction
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-" matchit ?
 Plug 'preservim/nerdtree'
 Plug 'junegunn/vim-easy-align'
 Plug 'vim-airline/vim-airline'
@@ -348,10 +359,9 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-ruby/vim-ruby'
 Plug 'slim-template/vim-slim'
+Plug 'bagrat/vim-buffet'
 
-" Plug 'adrian5/oceanic-next-vim'
-" Plug 'arcticicestudio/nord-vim'
-Plug 'jacoborus/tender.vim'
+Plug 'jacoborus/tender.vim' " Colorscheme
 
 call plug#end()
 
@@ -379,6 +389,7 @@ let g:fzf_layout = { 'down': '~20%' }
 set termguicolors
 colorscheme tender-adjusted
 
+let g:airline_theme = 'tender'
 let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
@@ -386,6 +397,20 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_symbols.dirty = '[*]'
 let g:airline_extensions = ['branch']
+
+nmap <leader>1 <Plug>BuffetSwitch(1)
+nmap <leader>2 <Plug>BuffetSwitch(2)
+nmap <leader>3 <Plug>BuffetSwitch(3)
+nmap <leader>4 <Plug>BuffetSwitch(4)
+nmap <leader>5 <Plug>BuffetSwitch(5)
+nmap <leader>6 <Plug>BuffetSwitch(6)
+nmap <leader>7 <Plug>BuffetSwitch(7)
+nmap <leader>8 <Plug>BuffetSwitch(8)
+nmap <leader>9 <Plug>BuffetSwitch(9)
+nmap <leader>0 <Plug>BuffetSwitch(10)
+
+xmap ga <Plug>(EasyAlign)
+map ga <Plug>(EasyAlign)
 
 " ----------------------------------------------------------------------------
 " OS Specific Settings
