@@ -331,13 +331,15 @@ map gI :call GoToPrevIndentBlock()<cr>
 " ----------------------------------------------------------------------------
 
 function! g:BuffetSetCustomColors()
-  hi! BuffetCurrentBuffer    cterm=Bold gui=Bold guibg=#a0a0a0 guifg=#282828
-  hi! BuffetActiveBuffer     cterm=NONE gui=NONE guibg=#a0a0a0 guifg=#282828
-  hi! BuffetBuffer           cterm=NONE gui=NONE guibg=#808080 guifg=#282828
-  hi! BuffetModCurrentBuffer cterm=Bold gui=Bold guibg=#a0a0a0 guifg=#282828
-  hi! BuffetModBuffer        cterm=NONE gui=NONE guibg=#808080 guifg=#282828
-  hi! BuffetTrunc            cterm=NONE gui=NONE guibg=#808080 guifg=#282828
-  hi! BuffetTab              cterm=NONE gui=NONE guibg=#a0a0a0 guifg=#282828
+  hi! BuffetCurrentBuffer    cterm=Bold gui=Bold guibg=#303030 guifg=#f5f5f5
+  hi! BuffetActiveBuffer     cterm=NONE gui=NONE guibg=#303030 guifg=#a0a0a0
+  "sds
+  hi! BuffetBuffer           cterm=NONE gui=NONE guibg=#303030 guifg=#a0a0a0
+  hi! BuffetModCurrentBuffer cterm=Bold gui=Bold guibg=#303030 guifg=#a0a0a0
+  "dsds
+  hi! BuffetModBuffer        cterm=NONE gui=NONE guibg=#303030 guifg=#a0a0a0
+  hi! BuffetTrunc            cterm=NONE gui=NONE guibg=#303030 guifg=#a0a0a0
+  hi! BuffetTab              cterm=NONE gui=NONE guibg=#303030 guifg=#a0a0a0
 endfunction
 
 call plug#begin('~/.vim/plugged')
@@ -359,7 +361,7 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-ruby/vim-ruby'
 Plug 'slim-template/vim-slim'
-Plug 'bagrat/vim-buffet'
+"Plug 'bagrat/vim-buffet'
 
 Plug 'jacoborus/tender.vim' " Colorscheme
 
@@ -383,6 +385,7 @@ let NERDTreeIgnore=['\.sock$', '\.rdb$']
 " FZF
 
 map <leader>t :FZF<CR>
+map <leader>b :Buffers<CR>
 let g:fzf_layout = { 'down': '~20%' }
 
 " Color
