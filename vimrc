@@ -194,15 +194,15 @@ function! DetectRunCommand(debug)
       let command = run_command
     endif
 
-  elseif expanded_path =~ "\.rb$"
+  elseif expanded_path =~ "\\.rb$"
 
     let command = "ruby " . expanded_path
 
-  elseif expanded_path =~ "bm-.\+\.cpp$"
+  elseif expanded_path =~ "bm-.\\+\\.cpp$"
 
     let command = "g++ -std=c++17 -O3 -ffast-math -march=native -g % -lm -lbenchmark -lpthread && ./a.out"
 
-  elseif expanded_path =~ "\.cpp$"
+  elseif expanded_path =~ "\\.cpp$"
 
     let command = "g++ -std=c++17 -O3 -ffast-math -march=native -g % && time ./a.out"
 
