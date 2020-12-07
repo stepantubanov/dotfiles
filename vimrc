@@ -15,6 +15,10 @@ au FileType cpp set mps+=<:>
 
 set timeout timeoutlen=1000 ttimeoutlen=100
 
+" open split to the bottom and to the right
+set splitbelow
+set splitright
+
 " ----------------------------------------------------------------------------
 "  Text Formatting
 " ----------------------------------------------------------------------------
