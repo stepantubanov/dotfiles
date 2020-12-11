@@ -334,18 +334,6 @@ map gI :call GoToPrevIndentBlock()<cr>
 " Plugins
 " ----------------------------------------------------------------------------
 
-function! g:BuffetSetCustomColors()
-  hi! BuffetCurrentBuffer    cterm=Bold gui=Bold guibg=#303030 guifg=#f5f5f5
-  hi! BuffetActiveBuffer     cterm=NONE gui=NONE guibg=#303030 guifg=#a0a0a0
-  "sds
-  hi! BuffetBuffer           cterm=NONE gui=NONE guibg=#303030 guifg=#a0a0a0
-  hi! BuffetModCurrentBuffer cterm=Bold gui=Bold guibg=#303030 guifg=#a0a0a0
-  "dsds
-  hi! BuffetModBuffer        cterm=NONE gui=NONE guibg=#303030 guifg=#a0a0a0
-  hi! BuffetTrunc            cterm=NONE gui=NONE guibg=#303030 guifg=#a0a0a0
-  hi! BuffetTab              cterm=NONE gui=NONE guibg=#303030 guifg=#a0a0a0
-endfunction
-
 call plug#begin('~/.vim/plugged')
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -365,7 +353,7 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-ruby/vim-ruby'
 Plug 'slim-template/vim-slim'
-"Plug 'bagrat/vim-buffet'
+Plug 'rhysd/vim-clang-format'
 
 Plug 'jacoborus/tender.vim' " Colorscheme
 
@@ -405,19 +393,10 @@ endif
 let g:airline_symbols.dirty = '[*]'
 let g:airline_extensions = ['branch']
 
-nmap <leader>1 <Plug>BuffetSwitch(1)
-nmap <leader>2 <Plug>BuffetSwitch(2)
-nmap <leader>3 <Plug>BuffetSwitch(3)
-nmap <leader>4 <Plug>BuffetSwitch(4)
-nmap <leader>5 <Plug>BuffetSwitch(5)
-nmap <leader>6 <Plug>BuffetSwitch(6)
-nmap <leader>7 <Plug>BuffetSwitch(7)
-nmap <leader>8 <Plug>BuffetSwitch(8)
-nmap <leader>9 <Plug>BuffetSwitch(9)
-nmap <leader>0 <Plug>BuffetSwitch(10)
-
 xmap ga <Plug>(EasyAlign)
 map ga <Plug>(EasyAlign)
+
+let g:clang_format#auto_formatexpr = 1
 
 " ----------------------------------------------------------------------------
 " OS Specific Settings
