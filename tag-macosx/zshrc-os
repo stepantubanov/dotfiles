@@ -1,2 +1,4 @@
 #eval $(docker-machine env default)
 #export DOCKER_BUILDKIT=1
+
+export PATH="/usr/local/opt/llvm/bin:$PATH"
