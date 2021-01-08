@@ -42,9 +42,9 @@ set virtualedit=block      " allow virtual edit in visual block ..
 " lead with ,
 let mapleader = ","
 
-inoremap ` <ESC>
-vnoremap ` <ESC>
-cnoremap ` <ESC>
+"inoremap ` <ESC>
+"vnoremap ` <ESC>
+"cnoremap ` <ESC>
 
 " reflow paragraph with Q in normal and visual mode
 "nnoremap Q gqap
@@ -396,7 +396,7 @@ let g:airline_extensions = ['branch']
 xmap ga <Plug>(EasyAlign)
 map ga <Plug>(EasyAlign)
 
-let g:clang_format#auto_formatexpr = 1
+let g:clang_format#auto_format = 1
 
 " ----------------------------------------------------------------------------
 " OS Specific Settings

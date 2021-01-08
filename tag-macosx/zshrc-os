@@ -2,3 +2,8 @@
 #export DOCKER_BUILDKIT=1
 
 export PATH="/usr/local/opt/llvm/bin:$PATH"
+
+#bindkey '^[[1;5D' backward-word
+#bindkey '^[[1;5C' forward-word
+
+alias objd="objdump -x86-asm-syntax=intel "
