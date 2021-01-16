@@ -204,11 +204,15 @@ function! DetectRunCommand(debug)
 
   elseif expanded_path =~ "bm-.\\+\\.cpp$"
 
-    let command = "g++ -std=c++17 -O3 -ffast-math -march=native -g % -lm -lbenchmark -lpthread && ./a.out"
+    let command = "g++ -std=c++17 -O3 -ffast-math -mrecip=none -march=native -g % -lm -lbenchmark -lpthread && ./a.out"
 
   elseif expanded_path =~ "\\.cpp$"
 
-    let command = "g++ -std=c++17 -O3 -ffast-math -march=native -g % && time ./a.out"
+    let command = "g++ -std=c++17 -O3 -march=native -g % && time ./a.out"
+
+  elseif expanded_path =~ "\\.asm$"
+
+    let command = "g++ -O2 -march=native % && time ./a.out"
 
   endif
 
