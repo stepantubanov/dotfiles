@@ -68,7 +68,7 @@ export FZF_DEFAULT_COMMAND='rg --files'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 source /usr/local/share/chruby/chruby.sh
-chruby "ruby-2.7.1"
+chruby "ruby-2.7.3"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

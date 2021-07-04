@@ -23,7 +23,8 @@ set splitright
 "  Text Formatting
 " ----------------------------------------------------------------------------
 
-set foldmethod=manual
+"set foldmethod=manual
+set nofoldenable
 set autoindent             " automatic indent new lines
 set nowrap                 " do not wrap lines
 set softtabstop=2          " yep, two
@@ -208,11 +209,16 @@ function! DetectRunCommand(debug)
 
   elseif expanded_path =~ "\\.cpp$"
 
-    let command = "g++ -std=c++17 -O3 -march=native -g % && time ./a.out"
+    let command = "g++ -std=c++17 -ffast-math -mrecip=none -O2 -march=native -g % && time ./a.out"
+    #let command = "g++ -std=c++17 -ffast-math -mrecip=none -O3 -march=native -g -fno-vectorize -fno-slp-vectorize % && time ./a.out"
 
   elseif expanded_path =~ "\\.asm$"
 
     let command = "g++ -O2 -march=native % && time ./a.out"
+
+  elseif expanded_path =~ "\\.js$"
+
+    let command = "node " . expanded_path
 
   endif
 
