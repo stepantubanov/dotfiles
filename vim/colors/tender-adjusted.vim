@@ -41,7 +41,7 @@ hi ErrorMsg guifg=#dc544f ctermfg=203 guibg=NONE ctermbg=NONE gui=reverse cterm=
 hi VertSplit guifg=#a0a0a0 ctermfg=235 guibg=#303030 ctermbg=235 gui=NONE cterm=NONE
 hi Folded guifg=#666666 ctermfg=242 guibg=#202020 ctermbg=234 gui=NONE cterm=NONE
 hi FoldColumn guifg=#666666 ctermfg=242 guibg=#202020 ctermbg=234 gui=NONE cterm=NONE
-hi SignColumn guifg=#999999 ctermfg=246 guibg=#282828 ctermbg=235 gui=NONE cterm=NONE
+hi SignColumn guifg=#999999 ctermfg=255 guibg=#303030 ctermbg=235 gui=NONE cterm=NONE
 hi IncSearch guifg=#ffffff ctermfg=15 guibg=#000000 ctermbg=0 gui=Bold,reverse cterm=Bold,reverse
 hi LineNr guifg=#a0a0a0 ctermfg=238 guibg=NONE ctermbg=NONE gui=NONE cterm=NONE
 hi MatchParen guifg=#dc544f ctermfg=203 guibg=NONE ctermbg=NONE gui=Bold cterm=Bold

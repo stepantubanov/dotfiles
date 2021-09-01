@@ -82,17 +82,6 @@ nmap <silent> <leader>. :nohlsearch<cr>
 " Quickly jump between last two files
 nmap <leader><leader> <C-^>
 
-" Quickly toggle between relative and absolute line numbers
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set number
-  else
-    set relativenumber
-  endif
-endfunc
-
-nnoremap <C-l> :call NumberToggle()<Cr>
-
 " Percent-percent expands to directory path
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
 
@@ -179,7 +168,7 @@ function! DetectRunCommand(debug)
 
   if filereadable(".vim/run")
 
-    let command = 'BUILD_TYPE=' . (a:debug ? 'Debug' : 'Release') . ' .vim/run'
+    let command = 'BUILD_TYPE=' . (a:debug ? 'Debug' : 'Release') . " .vim/run %"
 
   elseif expanded_path =~ "_spec\.rb$"
 
@@ -216,9 +205,17 @@ function! DetectRunCommand(debug)
 
     let command = "g++ -O2 -march=native % && time ./a.out"
 
+  elseif expanded_path =~ "\\.test.js$"
+
+    let command = "jest %"
+
   elseif expanded_path =~ "\\.js$"
 
     let command = "node " . expanded_path
+
+  elseif expanded_path =~ "\\.rs$"
+
+    let command = "rustc -O -o a.out -C target-cpu=skylake % && time ./a.out"
 
   endif
 
@@ -364,6 +361,8 @@ Plug 'plasticboy/vim-markdown'
 Plug 'vim-ruby/vim-ruby'
 Plug 'slim-template/vim-slim'
 Plug 'rhysd/vim-clang-format'
+Plug 'rust-lang/rust.vim'
+" Plug 'w0rp/ale'
 
 Plug 'jacoborus/tender.vim' " Colorscheme
 
@@ -386,13 +385,20 @@ let NERDTreeIgnore=['\.sock$', '\.rdb$']
 
 " FZF
 
-map <leader>t :FZF<CR>
-map <leader>b :Buffers<CR>
+nmap <silent> <leader>t :FZF<CR>
+nmap <silent> <leader>b :Buffers<CR>
 let g:fzf_layout = { 'down': '~20%' }
+let $FZF_DEFAULT_OPTS = '--color fg+:reverse,hl:3,hl+:3:reverse'
+
+" FZF hide terminal buffer statusline
+autocmd! FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " Color
 set termguicolors
 colorscheme tender-adjusted
+"let ayucolor="dark"
+"colorscheme ayu
 
 let g:airline_theme = 'tender'
 let g:airline_powerline_fonts = 1
@@ -406,7 +412,34 @@ let g:airline_extensions = ['branch']
 xmap ga <Plug>(EasyAlign)
 map ga <Plug>(EasyAlign)
 
-let g:clang_format#auto_format = 1
+" Instead of using this line:
+" 
+"   let g:clang_format#auto_format = 1
+"
+" We are just going to specify clang_format manually for c, cpp files only.
+" Plugin unfortunately hardcodes all file types (encroaching on javascript, typescript).
+autocmd BufWritePre *.c call clang_format#replace(1, line('$'))
+autocmd BufWritePre *.cpp call clang_format#replace(1, line('$'))
+
+" ALE Related Settings
+
+let g:airline#extensions#ale#enabled = 1
+
+let g:ale_fixers = {
+\ 'javascript': ['eslint'],
+\ }
+let g:ale_fix_on_save = 1
+
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+highlight ALEErrorSign ctermbg=NONE ctermfg=red
+highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
+
+set signcolumn=number
+
+" Rust
+
+let g:rustfmt_autosave = 1
 
 " ----------------------------------------------------------------------------
 " OS Specific Settings
