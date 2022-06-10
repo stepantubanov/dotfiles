@@ -47,6 +47,25 @@ case $TERM in
     ;;
 esac
 
+# Usage: git co**<TAB>
+# https://github.com/junegunn/fzf/wiki/Examples-(completion)
+_fzf_complete_git() {
+    ARGS="$@"
+    local branches
+    branches=$(git branch -vv --all)
+    if [[ $ARGS == 'git co'* ]]; then
+        _fzf_complete --reverse --multi -- "$@" < <(
+            echo $branches
+        )
+    else
+        eval "zle ${fzf_default_completion:-expand-or-complete}"
+    fi
+}
+
+_fzf_complete_git_post() {
+    awk '{print $1}'
+}
+
 # -------------------------------------------------------------------
 # Aliases
 # -------------------------------------------------------------------
@@ -54,6 +73,9 @@ esac
 alias bi="bundle exec"
 alias pg="postgres -D /usr/local/var/postgres"
 alias q="exit"
+
+alias wgup="wg-quick up wg0"
+alias wgdown="wg-quick down wg0"
 
 alias icat="kitty +kitten icat"
 

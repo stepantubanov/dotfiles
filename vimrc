@@ -215,7 +215,8 @@ function! DetectRunCommand(debug)
 
   elseif expanded_path =~ "\\.rs$"
 
-    let command = "rustc -O -o a.out -C target-cpu=skylake % && time ./a.out"
+    #let command = "rustc -O -o a.out -C target-cpu=skylake % && time ./a.out"
+    let command = "cargo run"
 
   endif
 
@@ -234,6 +235,8 @@ function! RunCurrentFile(debug)
     exec "!clear && echo '" . title . "\\n' && " . g:run_command
   endif
 endfunction
+
+:command! -nargs=1 RunCmd let g:run_command = <q-args>
 
 function! RepeatLastRun()
   :w
@@ -362,6 +365,7 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'slim-template/vim-slim'
 Plug 'rhysd/vim-clang-format'
 Plug 'rust-lang/rust.vim'
+Plug 'leafgarland/typescript-vim'
 " Plug 'w0rp/ale'
 
 Plug 'jacoborus/tender.vim' " Colorscheme
