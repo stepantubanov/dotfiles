@@ -89,9 +89,11 @@ export LANG=en_US.UTF-8
 export FZF_DEFAULT_COMMAND='rg --files'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-source /usr/local/share/chruby/chruby.sh
-chruby "ruby-2.7.3"
+#source /usr/local/share/chruby/chruby.sh
+source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+#chruby "ruby-2.7.3"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+source $HOME/.cargo/env
 source ~/.zshrc-os
