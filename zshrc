@@ -79,6 +79,16 @@ alias wgdown="wg-quick down wg0"
 
 alias icat="kitty +kitten icat"
 
+function swap() {
+  local TMPFILE=tmp.$$
+  mv "$1" $TMPFILE && mv "$2" "$1" && mv $TMPFILE "$2"
+}
+
+function sudoswap() {
+  local TMPFILE=tmp.$$
+  sudo mv "$1" $TMPFILE && sudo mv "$2" "$1" && sudo mv $TMPFILE "$2"
+}
+
 export TERM="xterm-256color"
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
