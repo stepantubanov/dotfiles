@@ -39,7 +39,7 @@ unsetopt correct_all
 # bindkey '^[^N' newtab
 # bindkey '^?' backward-delete-char
 
-source ~/.zsh/prompt.zsh
+# source ~/.zsh/prompt.zsh
 
 case $TERM in
   xterm*)
@@ -52,7 +52,7 @@ esac
 _fzf_complete_git() {
     ARGS="$@"
     local branches
-    branches=$(git branch -vv --all)
+    branches=$(git for-each-ref refs/heads/ --format='%(refname:short)')
     if [[ $ARGS == 'git co'* ]]; then
         _fzf_complete --reverse --multi -- "$@" < <(
             echo $branches
@@ -88,6 +88,8 @@ function sudoswap() {
   local TMPFILE=tmp.$$
   sudo mv "$1" $TMPFILE && sudo mv "$2" "$1" && sudo mv $TMPFILE "$2"
 }
+
+color()(set -o pipefail;"$@" 2> >(sed $'s,.*,\e[31m&\e[m,'>&2))
 
 export TERM="xterm-256color"
 export LSCOLORS="exfxcxdxbxegedabagacad"

@@ -8,7 +8,8 @@
   st = status
   ci = commit
   br = branch
-  co = checkout
+  co = checkout --recurse-submodules
+  #cos = checkout --recurse-submodules
   df = diff
   lg = log -p
   pf = pull --ff-only

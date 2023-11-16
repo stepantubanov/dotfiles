@@ -2,6 +2,8 @@
 " Misc Editor
 " ----------------------------------------------------------------------------
 
+" set shell=/bin/bash
+
 set nocompatible
 set nobackup
 set noswapfile
@@ -18,6 +20,9 @@ set timeout timeoutlen=1000 ttimeoutlen=100
 " open split to the bottom and to the right
 set splitbelow
 set splitright
+
+" merge sign column (lint/build messages) with number column
+set signcolumn=number
 
 " ----------------------------------------------------------------------------
 "  Text Formatting
@@ -215,8 +220,11 @@ function! DetectRunCommand(debug)
 
   elseif expanded_path =~ "\\.rs$"
 
-    #let command = "rustc -O -o a.out -C target-cpu=skylake % && time ./a.out"
-    let command = "cargo run"
+    if filereadable("Cargo.toml")
+      let command = "cargo run"
+    else
+      let command = "rustc -o a.out % && time ./a.out"
+    endif
 
   endif
 
@@ -360,15 +368,19 @@ Plug 'tpope/vim-surround'
 Plug 'pangloss/vim-javascript'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+"Plug 'plasticboy/vim-markdown'
+Plug 'preservim/vim-markdown'
 Plug 'vim-ruby/vim-ruby'
 Plug 'slim-template/vim-slim'
 Plug 'rhysd/vim-clang-format'
 Plug 'rust-lang/rust.vim'
 Plug 'leafgarland/typescript-vim'
 " Plug 'w0rp/ale'
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'vim-python/python-syntax'
 
-Plug 'jacoborus/tender.vim' " Colorscheme
+"Plug 'jacoborus/tender.vim' " Colorscheme
+Plug 'ayu-theme/ayu-vim'
 
 call plug#end()
 
@@ -400,18 +412,20 @@ autocmd! FileType fzf set laststatus=0 noshowmode noruler
 
 " Color
 set termguicolors
-colorscheme tender-adjusted
-"let ayucolor="dark"
-"colorscheme ayu
+"colorscheme tender-adjusted
+let ayucolor="mirage"
+colorscheme ayu
 
-let g:airline_theme = 'tender'
+"let g:airline_theme = 'tender'
 let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 let g:airline_symbols.dirty = '[*]'
+let g:airline_symbols.colnr = ' :'
 let g:airline_extensions = ['branch']
+let g:airline#extensions#branch#displayed_head_limit = 10
 
 xmap ga <Plug>(EasyAlign)
 map ga <Plug>(EasyAlign)
@@ -425,25 +439,51 @@ map ga <Plug>(EasyAlign)
 autocmd BufWritePre *.c call clang_format#replace(1, line('$'))
 autocmd BufWritePre *.cpp call clang_format#replace(1, line('$'))
 
-" ALE Related Settings
-
-let g:airline#extensions#ale#enabled = 1
-
-let g:ale_fixers = {
-\ 'javascript': ['eslint'],
-\ }
-let g:ale_fix_on_save = 1
-
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '⚠'
-highlight ALEErrorSign ctermbg=NONE ctermfg=red
-highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
-
-set signcolumn=number
-
 " Rust
 
 let g:rustfmt_autosave = 1
+"let g:rustfmt_command = "cargo +nightly fmt --"
+hi rustFuncName guifg=#FFD57F cterm=bold
+hi rustSelf ctermfg=11 guifg=#FFAE57 cterm=bold,italic
+hi rustAwait term=italic cterm=bold,italic ctermfg=13 gui=italic guifg=#D4BFFF
+"hi! rustAwait cterm=bold,italic
+
+" Coc Rust Analyzer
+
+" Tab to trigger completion.
+"autocmd FileType rust inoremap <silent><expr> <TAB>
+"      \ coc#pum#visible() ? coc#pum#next(1):
+"      \ CheckBackspace() ? "\<Tab>" :
+"      \ coc#refresh()
+"
+"autocmd FileType rust inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+"inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+"autocmd CursorHold *.rs silent call CocActionAsync('doHover')
+"autocmd FileType rust nnoremap <silent> K :call CocActionAsync('doHover')<CR>
+"nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Markdown
+
+" Do not hightlight code snippets.
+let g:vim_markdown_fenced_languages = []
+hi def link mkdCode Comment
+
+" Python
+
+let g:python_highlight_all = 1
+hi pythonFunction guifg=#FFD57F cterm=bold
+hi pythonClass guifg=#FFC44C cterm=bold
+hi pythonDecoratorName guifg=#FFD57F cterm=bold
 
 " ----------------------------------------------------------------------------
 " OS Specific Settings
