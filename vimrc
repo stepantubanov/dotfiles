@@ -380,7 +380,8 @@ Plug 'leafgarland/typescript-vim'
 Plug 'vim-python/python-syntax'
 
 "Plug 'jacoborus/tender.vim' " Colorscheme
-Plug 'ayu-theme/ayu-vim'
+"Plug 'ayu-theme/ayu-vim'
+Plug 'Luxed/ayu-vim'
 
 call plug#end()
 

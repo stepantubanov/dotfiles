@@ -90,6 +90,7 @@ function sudoswap() {
 }
 
 color()(set -o pipefail;"$@" 2> >(sed $'s,.*,\e[31m&\e[m,'>&2))
+source ~/.zshrc-os
 
 export TERM="xterm-256color"
 export LSCOLORS="exfxcxdxbxegedabagacad"
@@ -101,11 +102,10 @@ export LANG=en_US.UTF-8
 export FZF_DEFAULT_COMMAND='rg --files'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-#source /usr/local/share/chruby/chruby.sh
-source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
-#chruby "ruby-2.7.3"
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 source $HOME/.cargo/env
-source ~/.zshrc-os
+export CARGO_TARGET_DIR="$HOME/.target-cargo"
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+eval "$(starship init zsh)"
