@@ -1,0 +1,30 @@
+" open split to the bottom and to the right
+set splitbelow
+set splitright
+
+let mapleader = ","
+
+nnoremap - ,
+nnoremap = ;
+
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+
+" Use ; instead of : to type commands
+nnoremap ; :
+vnoremap ; :
+
+inoremap § <ESC>
+vnoremap § <ESC>
+cnoremap § <ESC>
+
+" Hide search highlighting
+nmap <silent> <leader>. :nohlsearch<cr>
+
+" Quickly jump between last two files
+nmap <leader><leader> <C-^>
+
+" Percent-percent expands to directory path
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
